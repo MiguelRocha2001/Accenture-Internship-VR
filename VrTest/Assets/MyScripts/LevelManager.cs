@@ -13,7 +13,6 @@ public class CylinderRespawn : MonoBehaviour
     private GameObject levelObject;
 
     private bool cylindersDestroyed = false;
-    private int throws = 0;
 
     public int score = 0;
 
@@ -58,15 +57,6 @@ public class CylinderRespawn : MonoBehaviour
 
             IncrementScore();
         }
-
-        GameObject sphere = GameObject.FindGameObjectsWithTag("Sphere")[0];
-        /*
-        if (sphere.IsInInitialPosition() == false && sphere.GetComponent<Rigidbody>().velocity > 0)
-        {
-            
-        }
-        */
-        // Debug.Log("Number of pins fallen: " + pinsFallen);
     }
 
     private void IncrementScore()
