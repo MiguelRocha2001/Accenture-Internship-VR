@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Security.Cryptography;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -43,6 +45,8 @@ public class CylinderRespawn : MonoBehaviour
                 if (levelObject!= null)
                 {
                     Destroy(levelObject); // Destroy the current instance
+                    TurnOnLight();
+                    
                 }
                 cylindersDestroyed = true;
             }
@@ -78,5 +82,21 @@ public class CylinderRespawn : MonoBehaviour
         {
             Debug.Log("Text is null");
         }
+    }
+
+    private async void TurnOnLight()
+    {
+        string json = "{\"data\": {\"switch\" : \"" + "on" + "\"}}";
+        var client = new HttpClient();
+        client.Timeout = TimeSpan.FromMinutes(1);
+
+        var endpoint = new System.Uri("http://192.168.0.111:8081/zeroconf/switch");
+
+        var payload = new StringContent(json, encoding: Encoding.UTF8);
+        var httpResponseMessage = await client.PostAsync(endpoint, payload);
+
+        json = "{\"data\": {\"switch\" : \"" + "off" + "\"}}";
+        payload = new StringContent(json, encoding: Encoding.UTF8);
+        httpResponseMessage = await client.PostAsync(endpoint, payload);
     }
 }

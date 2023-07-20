@@ -7,8 +7,11 @@ public class ObjectGrabber : MonoBehaviour
     private Vector3 initialGrabOffset;
     private Vector3 cameraVelocity;
 
+    private float MAX_DISTANCE = 3;
+
     private void Update()
     {
+      
         // Check for grab input (e.g., left mouse button)
         if (Input.GetMouseButtonDown(0))
         {
@@ -23,6 +26,8 @@ public class ObjectGrabber : MonoBehaviour
                 {
                     // Grab the object
                     grabbedObject = hit.collider.gameObject;
+                    if (TooFarAway()) return;
+
                     isGrabbing = true;
 
                     // Calculate the initial offset between the object's position and the grab point
@@ -58,11 +63,33 @@ public class ObjectGrabber : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (TooFarAway()) return;
+
         // Move the grabbed object to the grabber's position
         if (isGrabbing && grabbedObject != null)
         {
             Vector3 grabPosition = transform.position + initialGrabOffset;
             grabbedObject.GetComponent<Rigidbody>().MovePosition(grabPosition);
         }
+    }
+
+    private bool TooFarAway()
+    {
+        Debug.Log("X difference: " + (gameObject.transform.position.x - grabbedObject.transform.position.x));
+        Debug.Log("Y difference: " + (gameObject.transform.position.y - grabbedObject.transform.position.y));
+        Debug.Log("Z difference: " + (gameObject.transform.position.z - grabbedObject.transform.position.z));
+
+        float xDifference = gameObject.transform.position.x - grabbedObject.transform.position.x;
+        float yDifference = gameObject.transform.position.y - grabbedObject.transform.position.y;
+        float zDifference = gameObject.transform.position.z - grabbedObject.transform.position.z;
+        if (
+             xDifference > MAX_DISTANCE | xDifference < -MAX_DISTANCE |
+             yDifference > MAX_DISTANCE | yDifference < -MAX_DISTANCE |
+             zDifference > MAX_DISTANCE | zDifference < -MAX_DISTANCE
+        )
+        {
+            return true;
+        }
+        return false;
     }
 }
