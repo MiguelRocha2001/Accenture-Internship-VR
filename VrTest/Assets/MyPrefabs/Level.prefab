@@ -283,7 +283,6 @@ GameObject:
   - component: {fileID: 7005084857696481909}
   - component: {fileID: 2022208975840868714}
   - component: {fileID: 3137657807261665528}
-  - component: {fileID: 374856451236089442}
   - component: {fileID: 9088000972925338780}
   m_Layer: 5
   m_Name: SelectRedBall
@@ -310,7 +309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 88.1, y: 149}
+  m_AnchoredPosition: {x: -5.9000015, y: 110}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7005084857696481909
@@ -407,20 +406,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &374856451236089442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687591927023123527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f126b7ebd546af74abbc9de000fce74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 2069125547176978523}
-  newMass: 5
 --- !u!114 &9088000972925338780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,7 +925,6 @@ GameObject:
   - component: {fileID: 1616792270166209883}
   - component: {fileID: 3493354271484907603}
   - component: {fileID: 2023788717169901481}
-  - component: {fileID: 4926642819956281946}
   - component: {fileID: 6996214518938632245}
   m_Layer: 5
   m_Name: SelectYellowBall
@@ -967,7 +951,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -77.6, y: 149}
+  m_AnchoredPosition: {x: -171.6, y: 110}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1616792270166209883
@@ -1064,20 +1048,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4926642819956281946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3495093961609531876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f126b7ebd546af74abbc9de000fce74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 2069125547176978523}
-  newMass: 5
 --- !u!114 &6996214518938632245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1209,7 +1179,6 @@ GameObject:
   - component: {fileID: 5204244464373258471}
   - component: {fileID: 489977282068196375}
   - component: {fileID: 5012339383431982424}
-  - component: {fileID: 7076534530980224058}
   m_Layer: 5
   m_Name: SelectGreenBall
   m_TagString: BallSelectionButton
@@ -1235,7 +1204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 436, y: 150}
+  m_AnchoredPosition: {x: 342, y: 111}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &201381641326367584
@@ -1345,20 +1314,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 2069125547176978523}
---- !u!114 &7076534530980224058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3788060123203686697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f126b7ebd546af74abbc9de000fce74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 0}
-  newMass: 5
 --- !u!1 &4104938095757132807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1567,6 @@ GameObject:
   - component: {fileID: 1772422419011006225}
   - component: {fileID: 7221149982740323025}
   - component: {fileID: 3832692803607479599}
-  - component: {fileID: 2259567741118770340}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1722,20 +1676,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2259567741118770340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4667793821185533984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f126b7ebd546af74abbc9de000fce74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 0}
-  newMass: 5
 --- !u!1 &5032402667808627679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,7 +2259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 419.99982, y: 209.99988}
+  m_AnchoredPosition: {x: 341, y: 164}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &541645629995624978
@@ -2551,7 +2491,6 @@ GameObject:
   - component: {fileID: 1311971974291006112}
   - component: {fileID: 2239293832773281791}
   - component: {fileID: 7977716713662177882}
-  - component: {fileID: 5096825429930421289}
   m_Layer: 5
   m_Name: SelectBlueBall
   m_TagString: BallSelectionButton
@@ -2577,7 +2516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 258, y: 149}
+  m_AnchoredPosition: {x: 164, y: 110}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4418876743426932498
@@ -2687,20 +2626,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 2069125547176978523}
-  newMass: 5
---- !u!114 &5096825429930421289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6535818074256994822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f126b7ebd546af74abbc9de000fce74a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 0}
   newMass: 5
 --- !u!1 &6984945957653318221
 GameObject:

@@ -16,7 +16,10 @@ public class ButtonHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        BlueBallButtonSelector.SetActive(false);
+        GreenBallButtonSelector.SetActive(false);
+        RedBallButtonSelector.SetActive(false);
+        YellowBallButtonSelector.SetActive(false);
     }
 
     // Update is called once per frame
