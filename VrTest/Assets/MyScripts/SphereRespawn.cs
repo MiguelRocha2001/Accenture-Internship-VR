@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using System;
 
 public class Respawn : MonoBehaviour
@@ -34,9 +33,11 @@ public class Respawn : MonoBehaviour
         Vector3 ballPos = transform.position;
         double playerBallDistance = Math.Pow(Math.Pow(ballPos.x - playerPos.x, 2) + Math.Pow(ballPos.y - playerPos.y, 2) + Math.Pow(ballPos.z - playerPos.z, 2), 0.5);
 
+        Debug.Log("Player Ball Distasnce: " + playerBallDistance);
+
 
         // if ball stops, respawns
-        if (playerBallDistance > 2 && transform.position.y == 0 && previousVelocity != Vector3.zero && ballVelocity.x <= 0.1 && ballVelocity.y <= 0.1 && ballVelocity.z <= 0.1)  
+        if (playerBallDistance > 2 && transform.position.y <= initialPosition.y && previousVelocity != Vector3.zero && ballVelocity.x <= 1 && ballVelocity.y <= 1 && ballVelocity.z <= 1)  
         {
             Debug.Log("Ball stopped. Respawning...");
             previousVelocity = Vector3.zero;
@@ -45,12 +46,5 @@ public class Respawn : MonoBehaviour
             return;
         }
         previousVelocity = ballVelocity;
-    }
-
-    public void ResetPosition()
-    {
-        Debug.Log("Resetting ball");
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        transform.position = initialPosition;
     }
 }
