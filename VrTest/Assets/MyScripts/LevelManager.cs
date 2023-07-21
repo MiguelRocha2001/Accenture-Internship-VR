@@ -45,6 +45,9 @@ public class CylinderRespawn : MonoBehaviour
                 {
                     Destroy(levelObject); // Destroy the current instance
                     TurnOnLight();
+
+                    AudioSource source = levelObject.GetComponent<AudioSource>();
+                    source.Play();
                     
                 }
                 cylindersDestroyed = true;
