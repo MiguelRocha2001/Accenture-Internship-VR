@@ -16,9 +16,15 @@ public class CylinderRespawn : MonoBehaviour
 
     public int score = 0;
 
+    TextMeshProUGUI scoreText; // to update score text
+
     void Start()
     {
         levelObject = Instantiate(levelPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject scoreGameObject = GameObject.FindGameObjectsWithTag("ScoreText")[0];
+        scoreText = scoreGameObject.GetComponent<TextMeshProUGUI>();
+
+        updateScore(0);
     }
 
     // Update is called once per frame
@@ -65,11 +71,14 @@ public class CylinderRespawn : MonoBehaviour
     private void IncrementScore()
     {
         score++;
-        GameObject scoreText = GameObject.FindGameObjectsWithTag("ScoreText")[0];
-        TextMeshProUGUI text = scoreText.GetComponent<TextMeshProUGUI>();
-        if (text != null)
+        updateScore(score);
+    }
+
+    private void updateScore(int newScore)
+    {
+        if (scoreText != null)
         {
-            text.text = "Score: " + score;
+            scoreText.text = "Score: " + newScore;
         }
         else
         {

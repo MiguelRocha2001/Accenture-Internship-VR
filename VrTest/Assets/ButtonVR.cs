@@ -18,6 +18,8 @@ public class ButtonVR : MonoBehaviour
     int[] ballMass;
     int ballTypeIndex;
 
+    Vector3 initialButtonLocalPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,13 +29,14 @@ public class ButtonVR : MonoBehaviour
         ballColors = new Color[] { Color.red, Color.blue, Color.green };
         ballMass = new int[] { 10, 30, 50};
         ballTypeIndex = 0;
+        initialButtonLocalPos = button.transform.localPosition;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!isPressed)
         {
-            button.transform.localPosition = new Vector3(0, 0.5f, 0);
+            button.transform.localPosition = new Vector3(0, -0.7f, 0);
             presser = other.gameObject;
             onPress.Invoke();
             sound.Play();
@@ -45,7 +48,7 @@ public class ButtonVR : MonoBehaviour
     {
         if (other.gameObject == presser)
         {
-            button.transform.localPosition = new Vector3(0, 0, 0);
+            button.transform.localPosition = initialButtonLocalPos;
             onRelease.Invoke();
             isPressed = false;
         }
@@ -61,6 +64,10 @@ public class ButtonVR : MonoBehaviour
 
         // new ball configuration
         ballTypeIndex++;
+
+        if (ballTypeIndex >= ballMass.Length)
+            ballTypeIndex = 0;
+
         Color ballColor = ballColors[ballTypeIndex];
         int mass = ballMass[ballTypeIndex];
 
