@@ -21,10 +21,7 @@ public class Respawn : MonoBehaviour
         // if ball falls, respawns
         if(transform.position.y <= -10)
         {
-            Debug.Log("Ball falled down. Respawning...");
-            previousVelocity = Vector3.zero;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            transform.position = initialPosition;
+            RestoreBall();
             return;
         }
 
@@ -39,12 +36,17 @@ public class Respawn : MonoBehaviour
         // if ball stops, respawns
         if (playerBallDistance > 2 && transform.position.y <= initialPosition.y && previousVelocity != Vector3.zero && ballVelocity.x <= 1 && ballVelocity.y <= 1 && ballVelocity.z <= 1)  
         {
-            Debug.Log("Ball stopped. Respawning...");
-            previousVelocity = Vector3.zero;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            transform.position = initialPosition;
+            RestoreBall();
             return;
         }
         previousVelocity = ballVelocity;
+    }
+
+    public void RestoreBall()
+    {
+        Debug.Log("Ball stopped. Respawning...");
+        previousVelocity = Vector3.zero;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        transform.position = initialPosition;
     }
 }

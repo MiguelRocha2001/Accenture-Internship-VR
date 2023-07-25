@@ -26,8 +26,8 @@ public class ButtonVR : MonoBehaviour
         sound = GetComponent<AudioSource>();
         isPressed = false;
 
-        ballColors = new Color[] { Color.red, Color.blue, Color.green };
-        ballMass = new int[] { 10, 30, 50};
+        ballColors = new Color[] { Color.red, Color.blue, Color.green, Color.yellow };
+        ballMass = new int[] { 10000, 20000, 30000, 40000};
         ballTypeIndex = 0;
         initialButtonLocalPos = button.transform.localPosition;
     }

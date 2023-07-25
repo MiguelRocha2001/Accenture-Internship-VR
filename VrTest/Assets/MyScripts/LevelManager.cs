@@ -6,6 +6,8 @@ using System.Security.Cryptography;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using System.Threading.Tasks;
+using UnityEngine.InputSystem;
 
 public class CylinderRespawn : MonoBehaviour
 {
@@ -16,6 +18,10 @@ public class CylinderRespawn : MonoBehaviour
     private int pinsFallen = 0;
 
     public int score = 0;
+
+    private int blinkingInterval = 400;
+
+    private bool isBlinking = false;
 
     void Start()
     {
@@ -40,16 +46,15 @@ public class CylinderRespawn : MonoBehaviour
                 }
             }
 
-            int lightBlinkingTimes = pinsFallenUpdated - pinsFallen;
             pinsFallen = pinsFallenUpdated;
-
-            BlinkLight(1);
 
             if (pinsFallen == 10)
             {
-                if (levelObject!= null)
+                if (levelObject != null)
                 {
                     Destroy(levelObject); // Destroy the current instance
+
+                    BlinkLight(3);
 
                     AudioSource source = GetComponent<AudioSource>();
                     source.Play(); // aplauses
@@ -75,7 +80,7 @@ public class CylinderRespawn : MonoBehaviour
     }
 
     private void updateScore(int newScore)
-    { 
+    {
         GameObject scoreGameObject = GameObject.FindGameObjectsWithTag("ScoreText")[0];
         TextMeshProUGUI scoreText = scoreGameObject.GetComponent<TextMeshProUGUI>();
 
@@ -91,19 +96,31 @@ public class CylinderRespawn : MonoBehaviour
 
     private async void BlinkLight(int times)
     {
+        if (times == 0 || isBlinking) { return; }
+
+        isBlinking = true;
+
+        var client = new HttpClient();
+        client.Timeout = TimeSpan.FromMinutes(1);
+        var endpoint = new System.Uri("http://192.168.0.111:8081/zeroconf/switch");
+
+        string turnOnJson = "{\"data\": {\"switch\" : \"" + "on" + "\"}}";
+        string turnOfJson = "{\"data\": {\"switch\" : \"" + "off" + "\"}}";
+
         for (int i = 0; i < times; i++)
         {
-            var client = new HttpClient();
-            client.Timeout = TimeSpan.FromMinutes(1);
-            var endpoint = new System.Uri("http://192.168.0.111:8081/zeroconf/switch");
-
-            string json = "{\"data\": {\"switch\" : \"" + "on" + "\"}}";
-            var payload = new StringContent(json, encoding: Encoding.UTF8);
+            var payload = new StringContent(turnOnJson, encoding: Encoding.UTF8);
             var httpResponseMessage = await client.PostAsync(endpoint, payload);
-            
-            json = "{\"data\": {\"switch\" : \"" + "off" + "\"}}";
-            payload = new StringContent(json, encoding: Encoding.UTF8);
+
+            await Task.Delay(blinkingInterval);
+
+
+            payload = new StringContent(turnOfJson, encoding: Encoding.UTF8);
             httpResponseMessage = await client.PostAsync(endpoint, payload);
+
+            await Task.Delay(blinkingInterval);
         }
+
+        isBlinking = false;
     }
 }
