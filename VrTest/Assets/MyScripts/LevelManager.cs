@@ -13,6 +13,7 @@ public class CylinderRespawn : MonoBehaviour
     private GameObject levelObject;
 
     private bool cylindersDestroyed = false;
+    private int pinsFallen = 0;
 
     public int score = 0;
 
@@ -27,8 +28,7 @@ public class CylinderRespawn : MonoBehaviour
     {
         if (cylindersDestroyed == false)
         {
-            int pinsFallen = 0;
-
+            int pinsFallenUpdated = 0;
             GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Cylinder");
             foreach (GameObject cylinder in gameObjects)
             {
@@ -36,9 +36,14 @@ public class CylinderRespawn : MonoBehaviour
                 // Debug.Log("Cylinder rotation: x: " + cylinderRotation.x + " y: " + cylinderRotation.y + " z: " + cylinderRotation.z);
                 if (cylinderRotation.x > 0.2 || cylinderRotation.x < -0.2 || cylinderRotation.z > 0.2 || cylinderRotation.z < -0.2)
                 {
-                    pinsFallen++;
+                    pinsFallenUpdated++;
                 }
             }
+
+            int lightBlinkingTimes = pinsFallenUpdated - pinsFallen;
+            pinsFallen = pinsFallenUpdated;
+
+            BlinkLight(1);
 
             if (pinsFallen == 10)
             {
@@ -47,9 +52,7 @@ public class CylinderRespawn : MonoBehaviour
                     Destroy(levelObject); // Destroy the current instance
 
                     AudioSource source = GetComponent<AudioSource>();
-                    source.Play();
-
-                    TurnOnLight();
+                    source.Play(); // aplauses
 
                     cylindersDestroyed = true;
                 }
@@ -59,6 +62,7 @@ public class CylinderRespawn : MonoBehaviour
         {
             levelObject = Instantiate(levelPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             cylindersDestroyed = false;
+            pinsFallen = 0;
 
             IncrementScore();
         }
@@ -85,19 +89,21 @@ public class CylinderRespawn : MonoBehaviour
         }
     }
 
-    private async void TurnOnLight()
+    private async void BlinkLight(int times)
     {
-        string json = "{\"data\": {\"switch\" : \"" + "on" + "\"}}";
-        var client = new HttpClient();
-        client.Timeout = TimeSpan.FromMinutes(1);
+        for (int i = 0; i < times; i++)
+        {
+            var client = new HttpClient();
+            client.Timeout = TimeSpan.FromMinutes(1);
+            var endpoint = new System.Uri("http://192.168.0.111:8081/zeroconf/switch");
 
-        var endpoint = new System.Uri("http://192.168.0.111:8081/zeroconf/switch");
-
-        var payload = new StringContent(json, encoding: Encoding.UTF8);
-        var httpResponseMessage = await client.PostAsync(endpoint, payload);
-
-        json = "{\"data\": {\"switch\" : \"" + "off" + "\"}}";
-        payload = new StringContent(json, encoding: Encoding.UTF8);
-        httpResponseMessage = await client.PostAsync(endpoint, payload);
+            string json = "{\"data\": {\"switch\" : \"" + "on" + "\"}}";
+            var payload = new StringContent(json, encoding: Encoding.UTF8);
+            var httpResponseMessage = await client.PostAsync(endpoint, payload);
+            
+            json = "{\"data\": {\"switch\" : \"" + "off" + "\"}}";
+            payload = new StringContent(json, encoding: Encoding.UTF8);
+            httpResponseMessage = await client.PostAsync(endpoint, payload);
+        }
     }
 }
