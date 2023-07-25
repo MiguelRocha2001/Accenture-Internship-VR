@@ -16,14 +16,9 @@ public class CylinderRespawn : MonoBehaviour
 
     public int score = 0;
 
-    TextMeshProUGUI scoreText; // to update score text
-
     void Start()
     {
         levelObject = Instantiate(levelPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        GameObject scoreGameObject = GameObject.FindGameObjectsWithTag("ScoreText")[0];
-        scoreText = scoreGameObject.GetComponent<TextMeshProUGUI>();
-
         updateScore(0);
     }
 
@@ -39,7 +34,7 @@ public class CylinderRespawn : MonoBehaviour
             {
                 Quaternion cylinderRotation = cylinder.transform.rotation;
                 // Debug.Log("Cylinder rotation: x: " + cylinderRotation.x + " y: " + cylinderRotation.y + " z: " + cylinderRotation.z);
-                if (cylinderRotation.x > 0.5 || cylinderRotation.x < -0.5 || cylinderRotation.z > 0.5 || cylinderRotation.z < -0.5)
+                if (cylinderRotation.x > 0.2 || cylinderRotation.x < -0.2 || cylinderRotation.z > 0.2 || cylinderRotation.z < -0.2)
                 {
                     pinsFallen++;
                 }
@@ -50,13 +45,14 @@ public class CylinderRespawn : MonoBehaviour
                 if (levelObject!= null)
                 {
                     Destroy(levelObject); // Destroy the current instance
+
+                    AudioSource source = GetComponent<AudioSource>();
+                    source.Play();
+
                     TurnOnLight();
 
-                    AudioSource source = levelObject.GetComponent<AudioSource>();
-                    source.Play();
-                    
+                    cylindersDestroyed = true;
                 }
-                cylindersDestroyed = true;
             }
         }
         else
@@ -75,7 +71,10 @@ public class CylinderRespawn : MonoBehaviour
     }
 
     private void updateScore(int newScore)
-    {
+    { 
+        GameObject scoreGameObject = GameObject.FindGameObjectsWithTag("ScoreText")[0];
+        TextMeshProUGUI scoreText = scoreGameObject.GetComponent<TextMeshProUGUI>();
+
         if (scoreText != null)
         {
             scoreText.text = "Score: " + newScore;
