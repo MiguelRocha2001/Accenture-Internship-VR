@@ -107,18 +107,19 @@ public class CylinderRespawn : MonoBehaviour
         string turnOnJson = "{\"data\": {\"switch\" : \"" + "on" + "\"}}";
         string turnOfJson = "{\"data\": {\"switch\" : \"" + "off" + "\"}}";
 
+        // blinks n times
         for (int i = 0; i < times; i++)
         {
             var payload = new StringContent(turnOnJson, encoding: Encoding.UTF8);
-            var httpResponseMessage = await client.PostAsync(endpoint, payload);
+            await client.PostAsync(endpoint, payload); // send request to turn on light
 
-            await Task.Delay(blinkingInterval);
+            await Task.Delay(blinkingInterval); // delay
 
 
             payload = new StringContent(turnOfJson, encoding: Encoding.UTF8);
-            httpResponseMessage = await client.PostAsync(endpoint, payload);
+            await client.PostAsync(endpoint, payload); // send request to turn off light
 
-            await Task.Delay(blinkingInterval);
+            await Task.Delay(blinkingInterval); // delay
         }
 
         isBlinking = false;
